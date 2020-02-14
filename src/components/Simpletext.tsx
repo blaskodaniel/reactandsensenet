@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { CssBaseline } from "@material-ui/core";
 import { useLocalization } from "../hooks/use-localization";
 
-const SimpleText = (props: any) => {
+import { GeneralProps } from '../Types';
+
+export interface ISimpleText extends GeneralProps {
+  property?: string
+}
+
+const SimpleText = (props: ISimpleText) => {
   const localization = useLocalization()
   const [data, setdata] = useState()
 
   useEffect(()=>{
       try{
-        if(props && props.properties){
-            setdata(props.properties)
+        if(props && props){
+            setdata(props)
         }
       }catch(ex){
         console.log("Error in SimpleText component with props", ex.message)

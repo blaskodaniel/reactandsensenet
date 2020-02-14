@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { GeneralProps } from '../Types';
 
-const CustomComponent = (props: any) => {
+export interface IPatternComponent extends GeneralProps {
+  proprty?: string,
+  property2?: number
+}
+const PatternComponent = (props: IPatternComponent) => {
   const [data, setdata] = useState()
 
   useEffect(()=>{
       try{
-        if(props && props.properties){
-            setdata(props.properties)
+        if(props && props){
+            setdata(props)
         }
       }catch(ex){
         console.log("Error in CustomComponent component with props", ex.message)
@@ -18,4 +23,4 @@ const CustomComponent = (props: any) => {
   )
 };
 
-export default CustomComponent;
+export default PatternComponent;

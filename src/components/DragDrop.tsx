@@ -11,8 +11,8 @@ const Dragdrop: React.FunctionComponent = (props:any) => {
 
   useEffect(()=>{
       try{
-        if(props && props.properties){
-            setdata(props.properties)
+        if(props && props){
+            setdata(props)
         }
       }catch(ex){
         console.log("Error in SimpleText component with props", ex.message)

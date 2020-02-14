@@ -5,15 +5,21 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
+import { GeneralProps } from '../Types';
 
-export default function AddressForm (props: any) {
-  const [data, setdata] = useState()
+export interface IAddressForm extends GeneralProps {
+  required?: string[],
+  title?: string
+}
+
+export default function AddressForm (props: IAddressForm) {
+  const [data, setdata] = useState<IAddressForm>()
 
   useEffect(()=>{
       try{
-        if(props && props.properties){
-            setdata(props.properties)
-            console.log("PROPS: ",props.properties)
+        if(props){
+            setdata(props)
+            console.log("AddressForm: ",props)
         }
       }catch(ex){
         console.log("Error in AddressForm component with props", ex.message)

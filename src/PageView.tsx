@@ -3,31 +3,24 @@ import { RouteComponentProps } from 'react-router-dom';
 import { SinglePageContent, MenuContext } from './contexts/menucontext';
 import parse from 'html-react-parser';
 import { useMenu } from './hooks/useMenu';
-import ComponentCreator, { IBlock } from './components/utils/_importer';
+import ComponentCreator from './components/utils/_componentCreator';
 import uuid from "uuid";
-
-//const CustomComponent2 = React.lazy(() => import("./components/Testcomponent"));
-
-/* {
-    _uid: uuid.v4(),
-    component: "Bar",
-    property: "fdhdfh"
-  } */
+import { GeneralProps } from './Types';
 
 const PageView: React.FunctionComponent<RouteComponentProps<{params: string}> & {pagecontent: SinglePageContent}> = props => {
     const [pagedata, setpagedata] = useState<SinglePageContent>(props.pagecontent)
-    const [components, setcomponents] = useState<any[]>([])
+    const [components, setcomponents] = useState<GeneralProps[]>([])
 
     useEffect(()=>{
         setpagedata(props.pagecontent)
         if(props.pagecontent && props.pagecontent.Componentlist){
             try{
                 const json_complist = JSON.parse(props.pagecontent.Componentlist)
-                let componentslist: any[] = [];
-                json_complist.forEach((x:any)=>{
+                let componentslist: GeneralProps[] = [];
+                json_complist.forEach((x:GeneralProps)=>{
                     componentslist.push({
-                        _uid: uuid.v4(),
-                        ...x
+                        ...x,
+                        _uid: uuid.v4()
                     })
                 })
                 setcomponents(componentslist)
@@ -41,7 +34,7 @@ const PageView: React.FunctionComponent<RouteComponentProps<{params: string}> & 
         <div>
             <h2>{pagedata.Pagetitle}</h2>
             {parse(pagedata.Pagecontent)}
-            {components.map((block:IBlock) => ComponentCreator(block))}
+            {components.map((block:GeneralProps) => ComponentCreator(block))}
         </div>
     )
 }
