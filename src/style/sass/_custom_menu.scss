@@ -1,0 +1,131 @@
+.mainmenu{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(55, 61, 55);
+    height: 47px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.mainmenu h4 {
+    margin: 0;
+}
+
+.mainmenu .logo{
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 20px;
+    color: rgb(182, 179, 179);
+}
+
+.mainmenu .nav-links{
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    width: 35%;
+}
+
+.mainmenu .nav-links li{
+    list-style: none;
+}
+
+.mainmenu .nav-links a{
+    text-decoration: none;
+    letter-spacing: 3px;
+    color: rgb(182, 179, 179);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.mainmenu .burgermenu {
+    cursor: pointer;
+    display: none;
+}
+
+.mainmenu .burgermenu div{
+    width: 25px;
+    height: 2px;
+    margin: 5px;
+    background-color: rgb(226,226,226);
+    transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 1500px){
+    .mainmenu .nav-links{
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 1230px){
+    .mainmenu .nav-links{
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 1024px){
+    .mainmenu .nav-links{
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 768px){
+    body{
+        overflow-x: hidden;
+    }
+    .mainmenu .nav-links a{
+        margin-top: 20px;
+    }
+    .mainmenu .nav-links{
+        position: absolute;
+        right: 0;
+        height: 95vh;
+        background-color: rgb(55, 61, 55);
+        top: 5vh;
+        z-index: 10000;
+        padding-top: 35px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        width: 40%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in;
+    }
+
+    .mainmenu .nav-links li{
+        margin-top: 10px;
+        opacity: 0;
+    }
+
+    .mainmenu .burgermenu {
+        cursor: pointer;
+        display: block;
+    }
+}
+
+.mainmenu .nav-active {
+    transform: translateX(0%);
+}
+
+@keyframes navLinkFade{
+    from{
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+.mainmenu .toggle .line1{
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.mainmenu .toggle .line2{
+    opacity: 0;
+}
+
+.mainmenu .toggle .line3{
+    transform: rotate(45deg) translate(-4px, -5px);
+}

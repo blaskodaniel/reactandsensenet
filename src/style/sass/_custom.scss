@@ -1,0 +1,65 @@
+body{
+    background-color: #ffffff;
+}
+.padding25{
+    padding: 25px;
+}
+
+button.btn-info {
+    background-color: #000000;
+}
+
+.dropzone{
+    height: 100px;
+    width: 500px;
+    background: #1c1f1f30;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    border: 1px solid #0000002b;
+}
+
+.dropzone p {
+    margin-bottom: 0;
+}
+
+.filelist li {
+    list-style: none;
+    background: #dcd3979e;
+    margin-bottom: 5px;
+    padding: 7px 16px 7px 10px;
+}
+
+.filename{
+    font-weight: bold;
+}
+
+.fileremove{
+    text-align: center;
+    cursor: pointer;
+}
+
+.snlogo {
+    margin-top: 10px;
+    width: 50px;
+    height: 55px;
+    animation: bounce 1s infinite alternate;
+    -webkit-animation: bounce 1s infinite alternate;
+  }
+  @keyframes bounce {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-15px);
+    }
+  }
+  @-webkit-keyframes bounce {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-15px);
+    }
+  }
