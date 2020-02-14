@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
-import { GeneralProps } from '../Types';
+import { GeneralProps } from '../../Types';
+import { ShareContext } from '../../contexts/sharecontext';
 
 export interface IAddressForm extends GeneralProps {
   required?: string[],
@@ -14,6 +15,7 @@ export interface IAddressForm extends GeneralProps {
 
 export default function AddressForm (props: IAddressForm) {
   const [data, setdata] = useState<IAddressForm>()
+  const sharecontext = useContext(ShareContext)
 
   useEffect(()=>{
       try{
@@ -35,6 +37,10 @@ export default function AddressForm (props: IAddressForm) {
               return false
           }
       } 
+  }
+
+  const SubmitForm = () => {
+    sharecontext.setdata("Lófing")
   }
   
   return (
@@ -124,7 +130,7 @@ export default function AddressForm (props: IAddressForm) {
           />
         </Grid>
         <Grid item xs={12}>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={SubmitForm}>
                 Register
             </Button>
         </Grid>

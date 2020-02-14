@@ -13,7 +13,7 @@ const Menu = (props:{data: IMenuContext}) => {
 
   return (
     <>
-      <nav className="mainmenu">
+      <nav className="mainmenu fixed-top">
         <div className="logo">
           <h4>MKK</h4>
         </div>

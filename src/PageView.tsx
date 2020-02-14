@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext, Suspense } from 'react'
 import { RouteComponentProps } from 'react-router-dom';
 import { SinglePageContent, MenuContext } from './contexts/menucontext';
 import parse from 'html-react-parser';
-import { useMenu } from './hooks/useMenu';
 import ComponentCreator from './components/utils/_componentCreator';
 import uuid from "uuid";
 import { GeneralProps } from './Types';

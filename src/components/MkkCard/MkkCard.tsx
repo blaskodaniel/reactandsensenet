@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
@@ -13,7 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
-import { GeneralProps } from '../Types';
+import { GeneralProps } from '../../Types';
+import { ShareContext } from '../../contexts/sharecontext';
 
 export interface IMkkCard extends GeneralProps {}
 
@@ -64,7 +65,7 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function MkkCard (props: IMkkCard) {
   const classes = useStyles();
-
+  const sharecontext = useContext(ShareContext)
   const [data, setdata] = useState()
 
   useEffect(()=>{
@@ -89,7 +90,7 @@ export default function MkkCard (props: IMkkCard) {
             <Typography variant="h5" align="center" color="textSecondary" paragraph>
               Something short and leading about the collection below—its contents, the creator, etc.
               Make it short and sweet, but not too short so folks don&apos;t simply skip over it
-              entirely.
+              entirely. {sharecontext.data ? sharecontext.data : null}
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">

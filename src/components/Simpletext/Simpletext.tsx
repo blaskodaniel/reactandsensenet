@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useLocalization } from "../hooks/use-localization";
+import "./Simpletext.style.scss"
+import { useLocalization } from "../../hooks/use-localization";
 
-import { GeneralProps } from '../Types';
+import { GeneralProps } from '../../Types';
 
 export interface ISimpleText extends GeneralProps {
   property?: string

@@ -1,7 +1,7 @@
-import Dragdrop from "../DragDrop";
-import MkkCard from "../MkkCard";
-import SimpleText from "../Simpletext";
-import AddressForm from "../AdressForm";
+import Dragdrop from "../DragDrop/DragDrop";
+import MkkCard from "../MkkCard/MkkCard";
+import SimpleText from "../Simpletext/Simpletext";
+import AddressForm from "../AdressForm/AdressForm";
 
 const Components = [
   { name: "Dragdrop", component: Dragdrop },

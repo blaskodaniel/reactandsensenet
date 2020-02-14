@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import uuid from "uuid";
 import { useDropzone } from "react-dropzone";
-import { useLocalization } from "../hooks/use-localization";
+import { useLocalization } from "../../hooks/use-localization";
 
 const Dragdrop: React.FunctionComponent = (props:any) => {
   const localization = useLocalization()

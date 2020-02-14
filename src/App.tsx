@@ -16,7 +16,7 @@ const App = () => {
   return (
     <>
       {menucontext ? <Menu data={menucontext} /> : null}
-      <div className="container padding25">
+      <div className="container padding25 topspace">
         <div className="row">
           <div className="col-12">
             {menucontext.menuloading ? <FullScreenLoader text={"Az oldal töltődik"} /> : null}

@@ -7,6 +7,7 @@ import { createBrowserHistory } from "history";
 import { RepositoryProvider } from "./contexts/repositorycontext";
 import { MenuProvider } from "./contexts/menucontext";
 import { LocalizationProvider } from "./contexts/localizationcontext";
+import { ShareProvider } from "./contexts/sharecontext";
 
 export const hist = createBrowserHistory();
 
@@ -15,7 +16,9 @@ ReactDOM.render(
     <RepositoryProvider>
       <LocalizationProvider>
         <MenuProvider>
-          <App />
+          <ShareProvider>
+            <App />
+          </ShareProvider>
         </MenuProvider>
       </LocalizationProvider>
     </RepositoryProvider>
