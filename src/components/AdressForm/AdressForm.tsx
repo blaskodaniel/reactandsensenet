@@ -62,6 +62,7 @@ export default function AddressForm (props: IAddressForm) {
             id="firstName"
             name="firstName"
             label="First name"
+            defaultValue={sharecontext.data && sharecontext.data["firstName"] ? sharecontext.data["firstName"] : ""}
             fullWidth
             onChange={handleInputChange}
             autoComplete="fname"
