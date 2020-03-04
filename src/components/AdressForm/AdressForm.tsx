@@ -15,6 +15,7 @@ export interface IAddressForm extends GeneralProps {
 
 export default function AddressForm (props: IAddressForm) {
   const [data, setdata] = useState<IAddressForm>()
+  const [formdata, setformdata] = useState({});
   const sharecontext = useContext(ShareContext)
 
   useEffect(()=>{
@@ -40,8 +41,13 @@ export default function AddressForm (props: IAddressForm) {
   }
 
   const SubmitForm = () => {
-    sharecontext.setdata("Lófing")
+    sharecontext.setdata(formdata)
   }
+
+  const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setformdata({ ...formdata, [name]: value });
+  };
   
   return (
     <React.Fragment>
@@ -57,6 +63,7 @@ export default function AddressForm (props: IAddressForm) {
             name="firstName"
             label="First name"
             fullWidth
+            onChange={handleInputChange}
             autoComplete="fname"
           />
         </Grid>
@@ -67,6 +74,7 @@ export default function AddressForm (props: IAddressForm) {
             name="lastName"
             label="Last name"
             fullWidth
+            onChange={handleInputChange}
             autoComplete="lname"
           />
         </Grid>
@@ -77,6 +85,7 @@ export default function AddressForm (props: IAddressForm) {
             name="address1"
             label="Address line 1"
             fullWidth
+            onChange={handleInputChange}
             autoComplete="billing address-line1"
           />
         </Grid>
@@ -87,6 +96,7 @@ export default function AddressForm (props: IAddressForm) {
             name="address2"
             label="Address line 2"
             fullWidth
+            onChange={handleInputChange}
             autoComplete="billing address-line2"
           />
         </Grid>
@@ -97,6 +107,7 @@ export default function AddressForm (props: IAddressForm) {
             name="city"
             label="City"
             fullWidth
+            onChange={handleInputChange}
             autoComplete="billing address-level2"
           />
         </Grid>
@@ -110,6 +121,7 @@ export default function AddressForm (props: IAddressForm) {
             name="zip"
             label="Zip / Postal code"
             fullWidth
+            onChange={handleInputChange}
             autoComplete="billing postal-code"
           />
         </Grid>
@@ -120,6 +132,7 @@ export default function AddressForm (props: IAddressForm) {
             name="country"
             label="Country"
             fullWidth
+            onChange={handleInputChange}
             autoComplete="billing country"
           />
         </Grid>

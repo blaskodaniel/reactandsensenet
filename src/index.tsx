@@ -8,19 +8,22 @@ import { RepositoryProvider } from "./contexts/repositorycontext";
 import { MenuProvider } from "./contexts/menucontext";
 import { LocalizationProvider } from "./contexts/localizationcontext";
 import { ShareProvider } from "./contexts/sharecontext";
+import { SettingProvider } from "./contexts/settingscontext";
 
 export const hist = createBrowserHistory();
 
 ReactDOM.render(
   <Router history={hist}>
     <RepositoryProvider>
-      <LocalizationProvider>
-        <MenuProvider>
-          <ShareProvider>
-            <App />
-          </ShareProvider>
-        </MenuProvider>
-      </LocalizationProvider>
+      <SettingProvider>
+        <LocalizationProvider>
+          <MenuProvider>
+            <ShareProvider>
+              <App />
+            </ShareProvider>
+          </MenuProvider>
+        </LocalizationProvider>
+      </SettingProvider>
     </RepositoryProvider>
   </Router>,
   document.getElementById("root")
