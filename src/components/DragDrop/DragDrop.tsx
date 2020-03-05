@@ -1,133 +1,107 @@
-import React, { useState, useCallback, useEffect } from "react";
-import uuid from "uuid";
-import { useDropzone } from "react-dropzone";
-import Grid from "@material-ui/core/Grid";
+import React, { useState, useEffect } from "react";
 import { GeneralProps } from "../../Types";
-import "./DragDrop.style.scss";
+import "./DragDrop.style.scss"
 import { useLocalization } from "../../hooks/use-localization";
+import { DragDropContext, DropResult, Droppable, Draggable } from "react-beautiful-dnd";
 import { useSetting } from "../../hooks/use-settings";
 import { useComponentSetting } from "../../hooks/use-componentsettings";
-import { convertToUnit } from "../../utils";
+import Grid from "@material-ui/core/Grid";
+import styled from "styled-components";
 
-interface IDragdrop extends GeneralProps {
-  settingname?: string
+const Container = styled.div`
+    display: flex
+`
+const Paragraph = styled.p`
+    margin-bottom: 0px;
+    margin-left: ${(props:{isDragging: boolean}) => (props.isDragging ? "20px" : "8px")}
+`
+const Handle = styled.div`
+    width: 20px;
+    height: 20px;
+    background-color: orange;
+    border-radius: 4px;
+`
+
+export interface IDragDropComponent extends GeneralProps {
+  settingname?: string,
+  length: number
 }
+const DragDrop = (props: IDragDropComponent) => {
+  const localization = useLocalization(); // Localization
+  const settings = useSetting(); // Main settings
+  const componentsettings = useComponentSetting(props.settingname); // Component settings
+  const [data, setdata] = useState();
+  const [list, setlist] = useState(Array.from(Array(props.length).keys()))
 
-const Dragdrop: React.FunctionComponent<IDragdrop> = (props) => {
-  const localization = useLocalization()
-  const settings = useSetting() // Main settings
-  const componentsettings = useComponentSetting(props.settingname) // Component settings
-  
-  const [filecollection, setfilecollection] = useState<File[]>([]);
-  const [data, setdata] = useState()
-  const [allsize, setallsize] = useState(0)
-
-  useEffect(()=>{
-      try{
-        if(props){
-            setdata(props)
-        }
-      }catch(ex){
-        console.log("Error in SimpleText component with props", ex.message)
+  useEffect(() => {
+    try {
+      if (props) {
+        setdata(props);
       }
-  },[props]) 
+    } catch (ex) {
+      console.log("Error in component", ex.message);
+    }
+  }, [props]);
 
-  const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      const newarray = [...filecollection].concat(acceptedFiles);
-      newarray.sort((x:File,y:File)=>x.size - y.size)
-      let size = 0
-      newarray.forEach((x:File)=>{
-        size += x.size
-      })
-      if(size > componentsettings.maxsize){
-        console.log("Túl nagy a méret! (size: "+size, "maxsize: "+componentsettings.maxsize+")")
-        return false
-      }
-      setallsize(size)
-      
-      setfilecollection(newarray);
-      filecollection.forEach((file: File) => {
-        const reader = new FileReader();
+  const dragEndHandler = (result: DropResult) => {
+    console.log("DRAG END: ",result)
+    const {destination, source, draggableId} = result;
 
-        reader.onabort = () => console.log("file reading was aborted");
-        reader.onerror = () => console.log("file reading has failed");
-        reader.onload = () => {
-          // Do whatever you want with the file contents
-          const binaryStr = reader.result;
-        };
-        reader.readAsArrayBuffer(file);
-      });
-    },
-    [filecollection]
-  );
+  }
 
-  const removefile = (file: File) => {
-    console.log("Remove");
-    const newarray = [...filecollection];
-    const removedarray = newarray.filter(item => item !== file);
-    let size = 0
-    removedarray.forEach((x:File)=>{
-      size += x.size
-    })
-    setallsize(size)
-    setfilecollection(removedarray);
-  };
+  const dragStartHandler = (result: DropResult) => {
+    console.log("DRAG START: ",result)
+    const {destination, source, draggableId} = result;
+  }
 
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
-    onDrop
-  });
+  const dragUpdateHandler = (result: DropResult) => {
+    console.log("DRAG UPDATE: ",result)
+    const {destination, source, draggableId} = result;
+  }
 
   return (
     <div className="component-dragdrop">
-      <p>{JSON.stringify(componentsettings)}</p>
-      <Grid container spacing={1} justify="center" alignItems="center">
-        <Grid item xs={12} sm={6}>
-          <div {...getRootProps({ className: "dropzone" })}>
-            <input  {...getInputProps()} />
-            <p>{localization.dragdroptext}</p>
-            <p>{settings.REACT_APP_COMPRESSED_START}</p>
-          </div>
+        <Grid container>
+            <Grid item>
+                <p>
+                <a href={"https://github.com/atlassian/react-beautiful-dnd"}>react-beautiful-dnd library</a>
+                </p>
+            </Grid>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <div className="size">
-            <p>{convertToUnit(allsize).value}<span className="sizeprep"> {convertToUnit(allsize).symbol}</span></p>
-            <span>/</span>
-            <p><span className="sizeprep">max </span>{convertToUnit(componentsettings.maxsize).value}<span className="sizeprep"> {convertToUnit(componentsettings.maxsize).symbol}</span></p>
-          </div>
-        </Grid>
-      </Grid>
-      <Grid container>
-        <Grid item xs={12}>
-            {filecollection.length > 0 ? (
-              <>
-                <h4>Files</h4>
-                <ul className="filelist">
-                  {filecollection.map((x: File) => {
-                    return (
-                      <li key={uuid()}>
-                        <div className="filecontainer row">
-                          <div className="filename col-6">{x.name}</div>
-                          <div className="filesize col-4">
-                            {Math.round(x.size / 1000)} Kbyte
-                          </div>
-                          <div
-                            className="fileremove col-2"
-                            onClick={() => removefile(x)}
-                          >
-                            X
-                          </div>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </>
-            ) : null}
-        </Grid>
-      </Grid>
+        <DragDropContext onDragEnd={dragEndHandler} onDragStart={dragStartHandler} onDragUpdate={dragUpdateHandler}>
+            <Droppable droppableId={"543634"}>
+                {(provided, snapshot) => (
+                    <Grid container spacing={2}
+                        innerRef={provided.innerRef}
+                        {...provided.droppableProps}
+                    >
+                        {list.map((x:number,i: number) => {
+                            return (
+                                <Draggable draggableId={x.toString()} index={i} key={i}>
+                                    {(provided, snapshot) => (
+                                        <Grid 
+                                            className={snapshot.isDragging ? "draggingbox" : "box"}
+                                            item xs={12}
+                                            {...provided.draggableProps}
+                                            innerRef={provided.innerRef}
+                                        >
+                                            <Container>
+                                                <Handle {...provided.dragHandleProps} />
+                                                <Paragraph isDragging={snapshot.isDragging}>I am a droppable! value: {x}, index: {i}</Paragraph>
+                                            </Container>
+                                            
+                                        </Grid>
+                                    )}
+                                    
+                                </Draggable>
+                            )
+                        })}
+                    </Grid>
+                )}
+            </Droppable>
+        </DragDropContext>
     </div>
   );
 };
 
-export default Dragdrop;
+export default DragDrop;

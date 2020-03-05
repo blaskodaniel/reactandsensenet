@@ -1,13 +1,16 @@
 .component-dragdrop{
-    .size {
-        text-align: center;
-        font-size: 40px;
-        display: flex;
-        justify-content: center;
-      }
-      
-      .sizeprep {
-        font-size: 15px;
-      }
+    .box{
+        border: 1px solid black;
+        margin: 3px;
+        background-color: rgb(224, 221, 221);
+    }
+    .draggingbox{
+        border: 1px solid black;
+        margin: 3px;
+        background-color: rgb(241, 85, 85);
+    }
+    .droppable-area{
+        margin-top: 20px;
+        border: 1px solid black;
+    }
 }
-
